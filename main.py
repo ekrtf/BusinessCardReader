@@ -67,22 +67,23 @@ def decode_predictions(scores, geometry):
     return (rects, confidences)
 
 
+# start FPS counter
 fps = FPS().start()
 
-
+# dimentions
 (W, H) = (None, None)
 (newW, newH) = (320, 320)
 (rW, rH) = (None, None)
 
+# read from webcam
 print("[INFO] starting video stream...")
 vs = VideoStream(src=0).start()
 time.sleep(1.0)
 
+print("[INFO] analyzing stream...")
+print("[INFO] detected text will print")
 while True:
     frame = vs.read()
-    # frame = frame[1] if args.get("video", False) else frame
-
-    # check to see if we have reached the end of the stream
     if frame is None:
         break
 
@@ -95,7 +96,8 @@ while True:
     # second can be used to derive the bounding box coordinates of text
     layerNames = [
         "feature_fusion/Conv_7/Sigmoid",
-        "feature_fusion/concat_3"]
+        "feature_fusion/concat_3"
+    ]
 
     # load the pre-trained EAST text detector
     print("[INFO] loading EAST text detector...")
@@ -168,20 +170,17 @@ while True:
     # loop over the results
     for ((startX, startY, endX, endY), text) in results:
         # display the text OCR'd by Tesseract
-        print("OCR TEXT")
-        print("========")
         print("{}\n".format(text))
 
-    text = pytesseract.image_to_string(orig)
-    print(text)
 
+    # update counter
     fps.update()
 
+    # display frame
     cv2.imshow("BusinessCardReader", orig)
 
-    key = cv2.waitKey(1) & 0xFF
-
     # if the `q` key was pressed, break from the loop
+    key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
 
