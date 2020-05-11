@@ -11,6 +11,7 @@ import imutils
 import time
 import cv2
 
+
 def decode_predictions(scores, geometry):
 	# grab the number of rows and columns from the scores volume, then
 	# initialize our set of bounding box rectangles and corresponding
@@ -67,6 +68,7 @@ def decode_predictions(scores, geometry):
 
 	# return a tuple of the bounding boxes and associated confidences
 	return (rects, confidences)
+
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
