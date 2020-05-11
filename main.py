@@ -100,7 +100,6 @@ while True:
     ]
 
     # load the pre-trained EAST text detector
-    print("[INFO] loading EAST text detector...")
     net = cv2.dnn.readNet("frozen_east_text_detection.pb")
 
     # if our frame dimensions are None, we still need to compute the
